@@ -1,4 +1,6 @@
-# genshin-lottery-demo
+# genshin-gacha-demo-web
+
+> 原神模拟抽奖前端
 
 ## Project setup
 ```
