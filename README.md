@@ -1,6 +1,8 @@
 # genshin-gacha-demo-web
 
 > 原神模拟抽奖前端
+> 
+> 后端： [genshin-gacha-demo-api](https://github.com/imtin/genshin-gacha-demo-api)
 
 ## Project setup
 ```
