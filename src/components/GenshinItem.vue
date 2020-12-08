@@ -29,12 +29,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-@font-face {
-  font-family: YS-Normal;
-  src: url("../assets/font/Default_SC.ttf");
-  font-style: normal
-}
-
 .genshin-card {
   margin: 8px;
   width: 120px;

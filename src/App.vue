@@ -49,8 +49,14 @@ export default {
 </script>
 
 <style lang="less">
+@font-face {
+  font-family: YS-Normal;
+  src: url("assets/font/Default_SC.ttf");
+  font-style: normal
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  //font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: YS-Normal, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

@@ -21,11 +21,11 @@
       <div class="left-box">
         <a-empty :description="false" v-show="wish_gifts.length === 0"/>
         <div class="genshin-card-container">
-          <!--          <genshin-item-->
-          <!--              v-for="gift in wish_gifts"-->
-          <!--              :item="gift"-->
-          <!--              :key="wish_gifts.indexOf(gift) + 10"-->
-          <!--          />-->
+          <genshin-item
+              v-for="gift in wish_gifts"
+              :key="wish_gifts.indexOf(gift) + 10"
+              :item="gift"
+          />
         </div>
         <div class="lottery-button-group">
           <a-config-provider :auto-insert-space-in-button="false">
@@ -233,7 +233,6 @@ export default {
       padding: 8px 0 0 20px;
 
       .statistic-title {
-        font-family: YS-Normal, serif;
         font-size: 20px;
         padding: 5px;
         margin-bottom: 12px;

@@ -97,7 +97,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: YS-Normal, serif;
     position: relative;
     //overflow: hidden;
 
