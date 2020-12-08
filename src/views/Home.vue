@@ -32,10 +32,10 @@
             <a-button type="danger" size="large" class="reset-button" @click="reset">重置</a-button>
           </a-config-provider>
           <a-config-provider :auto-insert-space-in-button="false">
-            <a-button type="primary" size="large" class="wish-button" @click="wish(10)">十连</a-button>
+            <a-button class="wish-button" size="large" type="primary" @click="wish(10)">祈愿 &times; 10</a-button>
           </a-config-provider>
           <a-config-provider :auto-insert-space-in-button="false">
-            <a-button class="wish-button" size="large" type="primary" @click="wish(90)">九十连</a-button>
+            <a-button class="wish-button" size="large" type="primary" @click="wish(90)">祈愿 &times; 90</a-button>
           </a-config-provider>
         </div>
       </div>
@@ -88,7 +88,6 @@ export default {
       this.vid = vid
     }
     await this.fetchPools()
-    await this.fetchWishPoolStatistic()
   },
   computed: {
     is_static_show() {
@@ -100,8 +99,8 @@ export default {
     // 切换池子的时候清空抽奖列表和更新统计数据
     selected_pool(val) {
       this.selected_pool = val
-      this.wish_gifts = []
       this.fetchWishPoolStatistic()
+      this.wish_gifts = []
     }
   },
   methods: {
@@ -170,7 +169,6 @@ export default {
       })
     },
     // 重置当前用户信息
-    // TODO
     async reset() {
       await axios.get('/api/wish/reset', {
         params: {'poolId': this.selected_pool,}, headers: {
