@@ -8,12 +8,14 @@
           class="genshin-card">
 
     <div :class="['item-bg-' + item['ranting']]" class="item-preview">
-      <div :style="{backgroundImage: 'url(' + item['avatar'] + ')'}" class="item-avatar" />
+      <div :style="{backgroundImage: 'url(' + item['avatar'] + ')'}" class="item-avatar"/>
       <div class="item-attr"
            :class="['character-attr-' + item['characterAttrId']]"
            v-if="item['character_attr_id'] !== null"/>
     </div>
-    <div class="item-name">{{ item['name'] }}</div>
+    <div v-if="item['count'] !== undefined" class="item-name">{{ item['name'] }} {{ item['count'] }}</div>
+    <div v-else class="item-name">{{ item['name'] }}</div>
+
   </a-card>
 </template>
 
@@ -21,7 +23,7 @@
 export default {
   name: 'GenshinCard',
   props: {
-    item: {}
+    item: {},
   }
 }
 </script>

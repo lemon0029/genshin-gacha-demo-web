@@ -21,11 +21,11 @@
       <div class="left-box">
         <a-empty :description="false" v-show="wish_gifts.length === 0"/>
         <div class="genshin-card-container">
-          <genshin-item
-              v-for="gift in wish_gifts"
-              :item="gift"
-              :key="wish_gifts.indexOf(gift) + 10"
-          />
+          <!--          <genshin-item-->
+          <!--              v-for="gift in wish_gifts"-->
+          <!--              :item="gift"-->
+          <!--              :key="wish_gifts.indexOf(gift) + 10"-->
+          <!--          />-->
         </div>
         <div class="lottery-button-group">
           <a-config-provider :auto-insert-space-in-button="false">
@@ -33,6 +33,9 @@
           </a-config-provider>
           <a-config-provider :auto-insert-space-in-button="false">
             <a-button type="primary" size="large" class="wish-button" @click="wish(10)">十连</a-button>
+          </a-config-provider>
+          <a-config-provider :auto-insert-space-in-button="false">
+            <a-button class="wish-button" size="large" type="primary" @click="wish(90)">九十连</a-button>
           </a-config-provider>
         </div>
       </div>
@@ -103,7 +106,7 @@ export default {
   },
   methods: {
     toStoreHandler(data) {
-      this.$router.push({name: 'Store', params: {'poolId': data}})
+      this.$router.push({name: 'Inventory', query: {'poolId': data}})
     },
     async fetchPools() {
       await axios.get('/api/genshin/pool', {
@@ -169,7 +172,7 @@ export default {
     // 重置当前用户信息
     // TODO
     async reset() {
-      await axios.get('/api/lottery/reset', {
+      await axios.get('/api/wish/reset', {
         params: {'poolId': this.selected_pool,}, headers: {
           'vid': this.vid
         }
@@ -273,6 +276,10 @@ export default {
 
           button:last-child {
             margin: 0 12px;
+          }
+
+          button:nth-last-child(2) {
+            margin-left: 12px;
           }
         }
       }

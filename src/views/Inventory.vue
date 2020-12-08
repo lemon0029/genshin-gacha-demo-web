@@ -3,7 +3,7 @@
     <div class="genshin-card-container">
       <genshin-item
           v-for="gift in gifts"
-          :item="gift['gift']"
+          :item="gift"
           :key="gifts.indexOf(gift) + 10"
       />
     </div>
@@ -16,29 +16,28 @@ import GenshinItem from '@/components/GenshinItem'
 export default {
   data() {
     return {
-      selected_pool: "",
       gifts: []
     }
   },
-  name: 'Store',
+  name: 'Inventory',
   components: {
     GenshinItem
   },
   created() {
-    this.selected_pool = this.$route.params['poolId']
     this.fetchGifts()
   },
   methods: {
     async fetchGifts() {
-      let resp = await axios.get("/api/lottery/gifts", {
+      await axios.get('/api/inventory', {
         params: {
-          'sessionId': localStorage.getItem('session_id'),
-          'poolId': this.$route.params['poolId']
+          'poolId': this.$route.query['poolId']
+        },
+        headers: {
+          'vid': localStorage.getItem('vid')
         }
+      }).then(resp => {
+        this.gifts = resp.data.data
       })
-
-      this.gifts = resp.data.data
-      console.log(resp)
     }
   }
 }
@@ -56,7 +55,8 @@ export default {
 
   .genshin-card-container {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
   }
 }

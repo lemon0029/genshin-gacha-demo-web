@@ -5,11 +5,11 @@
         <a-spin size="large"/>
       </div>
       <a-layout-header style="padding: 0" v-show="!isLoading">
-        <div class="logo">GACHA</div>
+        <div class="logo" @click="goHome">GACHA</div>
       </a-layout-header>
       <a-layout-content v-show="!isLoading">
         <div class="container">
-            <router-view/>
+          <router-view/>
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center" v-show="!isLoading">
@@ -38,6 +38,12 @@ export default {
     ALayoutHeader: Layout.Header,
     ALayoutContent: Layout.Content,
     ALayoutFooter: Layout.Footer,
+  },
+  methods: {
+    goHome() {
+      if (this.$route.path !== '/')
+        this.$router.push({name: 'Home'})
+    }
   }
 }
 </script>
@@ -67,6 +73,8 @@ export default {
     font-size: 30px;
     color: white;
     margin-left: 98px;
+    cursor: pointer;
+    user-select: none;
   }
 
   .container {
@@ -81,6 +89,7 @@ export default {
     .logo {
       margin-left: 15px;
     }
+
     .container {
       width: 100%;
       padding: 20px 10px 0 10px;

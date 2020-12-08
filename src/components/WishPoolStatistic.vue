@@ -9,19 +9,27 @@
     </div>
     <div class="statistic-card">
       {{ statistic_pool['totalGet5Count'] }}
-      <div class="inner-info">获得5星总数</div>
+      <div class="inner-info">
+        5星总数 ({{ getPercent(statistic_pool['totalGet5Count'], statistic_pool['totalWishCount']) }})
+      </div>
     </div>
     <div class="statistic-card">
       {{ statistic_pool['totalGet4Count'] }}
-      <div class="inner-info">获得4星总数</div>
+      <div class="inner-info">
+        4星总数 ({{ getPercent(statistic_pool['totalGet4Count'], statistic_pool['totalWishCount']) }})
+      </div>
+    </div>
+    <div v-show="statistic_pool['totalGet5UpCount'] !== null" class="statistic-card">
+      {{ statistic_pool['totalGet5UpCount'] }}
+      <div class="inner-info">
+        5星UP数 ({{ getPercent(statistic_pool['totalGet5UpCount'], statistic_pool['totalGet5Count']) }})
+      </div>
     </div>
     <div class="statistic-card" v-show="statistic_pool['totalGet4UpCount'] !== null">
       {{ statistic_pool['totalGet4UpCount'] }}
-      <div class="inner-info">4星UP数</div>
-    </div>
-    <div class="statistic-card" v-show="statistic_pool['totalGet5UpCount'] !== null">
-      {{ statistic_pool['totalGet5UpCount'] }}
-      <div class="inner-info">5星UP数</div>
+      <div class="inner-info">
+        4星UP数 ({{ getPercent(statistic_pool['totalGet4UpCount'], statistic_pool['totalGet4Count']) }})
+      </div>
     </div>
     <div class="statistic-card">
       {{ statistic_pool['get5ByBaodiCount'] }}
@@ -58,7 +66,15 @@ export default {
   },
   methods: {
     go_to_store() {
-      this.$emit("toStore", this.statistic_pool['wishPoolId'])
+      this.$emit('toStore', this.statistic_pool['wishPoolId'])
+    },
+    getPercent(num, total) {
+      num = parseFloat(num)
+      total = parseFloat(total)
+      if (isNaN(num) || isNaN(total)) {
+        return '-'
+      }
+      return total <= 0 ? '0%' : (Math.round(num / total * 10000) / 100.00) + '%'
     }
   }
 }
@@ -83,15 +99,17 @@ export default {
     align-items: center;
     font-family: YS-Normal, serif;
     position: relative;
-    overflow: hidden;
+    //overflow: hidden;
 
     .inner-info {
       background-color: rgba(0, 0, 0, 0.06);
       font-size: 12px;
       color: rgba(0, 0, 0, 0.45);
       height: 35px;
-      text-align: center;
-      line-height: 35px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
       width: 100%;
       margin: 0;
       position: absolute;
