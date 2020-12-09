@@ -9,7 +9,7 @@ import axios from 'axios'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: 'http://192.168.1.117:8080',
+  baseURL: 'http://localhost:8080', // 如要局域网内访问则将此改为本机的局域网IP
   timeout: 10000,
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
