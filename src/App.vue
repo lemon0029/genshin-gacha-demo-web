@@ -4,9 +4,7 @@
       <div class="loading-container" v-show="isLoading">
         <a-spin size="large"/>
       </div>
-      <a-layout-header style="padding: 0" v-show="!isLoading">
-        <div class="logo" @click="goHome">GACHA</div>
-      </a-layout-header>
+     <app-header/>
       <a-layout-content v-show="!isLoading">
         <div class="container">
           <router-view/>
@@ -15,13 +13,15 @@
       <a-layout-footer style="text-align: center" v-show="!isLoading">
         Genshin Lottery ©2020
       </a-layout-footer>
+      <a-back-top />
     </a-layout>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import {Layout} from 'ant-design-vue'
+import AppHeader from '@/components/AppHeader'
 
 export default {
   name: 'app',
@@ -34,16 +34,10 @@ export default {
     })
   },
   components: {
+    AppHeader,
     ALayout: Layout,
-    ALayoutHeader: Layout.Header,
     ALayoutContent: Layout.Content,
     ALayoutFooter: Layout.Footer,
-  },
-  methods: {
-    goHome() {
-      if (this.$route.path !== '/')
-        this.$router.push({name: 'Home'})
-    }
   }
 }
 </script>
@@ -55,7 +49,6 @@ export default {
   font-style: normal
 }
 #app {
-  //font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-family: YS-Normal, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -75,30 +68,22 @@ export default {
     background: #ffffff;
   }
 
-  .logo {
-    font-size: 30px;
-    color: white;
-    margin-left: 98px;
-    cursor: pointer;
-    user-select: none;
-  }
-
   .container {
     width: 90%;
-    margin: auto;
+    margin: 64px auto 0 auto;
     padding: 25px 20px 0 20px;
   }
 }
 
 @media screen and (max-width: 850px) {
   #app {
-    .logo {
-      margin-left: 15px;
-    }
-
     .container {
       width: 100%;
       padding: 20px 10px 0 10px;
+    }
+
+    .ant-back-top {
+      display: none;
     }
   }
 }

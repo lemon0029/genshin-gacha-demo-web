@@ -83,6 +83,8 @@ export default {
 <style scoped lang="less">
 .statistic-container {
   display: flex;
+  justify-content: space-around;
+
   flex-wrap: wrap;
 
   .statistic-card {

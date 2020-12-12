@@ -23,13 +23,11 @@ let vueRouter = new VueRouter({
   routes
 })
 
-// 路由跳转前的钩子
 vueRouter.beforeEach(function (to, from, next) {
   store.commit('updateLoadingStatus', {isLoading: true})
   next()
 })
 
-// 路由跳转后的钩子
 vueRouter.afterEach(function () {
   setTimeout(() => {
     store.commit('updateLoadingStatus', {isLoading: false})

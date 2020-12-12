@@ -55,7 +55,6 @@
 import {Layout, Select} from 'ant-design-vue'
 import GenshinItem from '@/components/GenshinItem'
 import WishPoolStatistic from '@/components/WishPoolStatistic'
-import '@/service/HomeService'
 
 export default {
   name: 'Home',
@@ -245,7 +244,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1200px) {
   .home {
     .main-content {
       padding: 15px 5px;
