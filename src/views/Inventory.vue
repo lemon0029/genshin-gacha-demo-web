@@ -53,7 +53,6 @@ export default {
   async created() {
     if (this.$route.query['poolId'] !== undefined)
       this.selected_pool = this.$route.query['poolId']
-    console.log(this.selected_pool)
     await this.fetchPools()
     await this.fetchGifts()
   },
@@ -75,7 +74,8 @@ export default {
         headers: {'vid': localStorage.getItem('vid')}
       }).then(resp => {
           this.pools = resp.data.data
-          this.selected_pool = resp.data.data[0]['pool_id']
+          if (this.selected_pool === "")
+            this.selected_pool = resp.data.data[0]['pool_id']
       })
     },
   }

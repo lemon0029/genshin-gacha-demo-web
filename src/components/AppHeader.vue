@@ -45,9 +45,6 @@ export default {
       menu_show: true,
     }
   },
-  updated() {
-    console.log(window.innerWidth)
-  },
   components: {
     ALayoutHeader: Layout.Header,
     AMenu: Menu,
@@ -59,7 +56,6 @@ export default {
         this.$router.push({name: 'Home'})
     },
     showTag() {
-      console.log('fdf')
       this.menu_show = !this.menu_show
     }
   }

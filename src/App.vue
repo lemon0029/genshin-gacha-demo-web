@@ -3,6 +3,7 @@
     <a-layout>
       <div class="loading-container" v-show="isLoading">
         <a-spin size="large"/>
+        
       </div>
      <app-header/>
       <a-layout-content v-show="!isLoading">
