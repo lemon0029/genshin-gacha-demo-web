@@ -3,7 +3,7 @@
     <div class="pool-select">
       <a-select v-model="selected_pool">
         <template v-for="pool in pools">
-          <a-select-option :value="pool['pool_id']">
+          <a-select-option :value="pool['pool_id']" :key="pool['pool_id']">
             <span v-html="pool['pool_title']"></span>
           </a-select-option>
         </template>
@@ -12,20 +12,14 @@
 
     <div class="main-content">
       <a-empty v-show="gifts.length === 0"/>
-      <div class="genshin-card-container">
-        <genshin-item
-            v-for="gift in gifts"
-            :item="gift"
-            :key="gifts.indexOf(gift) + 10"
-        />
-      </div>
+      <genshin-item-list :items="gifts" />
     </div>
   </div>
 
 </template>
 
 <script>
-import GenshinItem from '@/components/GenshinItem'
+import GenshinItemList from '@/components/GenshinItemList'
 import {Select} from 'ant-design-vue'
 
 export default {
@@ -38,9 +32,10 @@ export default {
   },
   name: 'Inventory',
   components: {
-    GenshinItem,
+    GenshinItemList,
     ASelect: Select,
     ASelectOption: Select.Option,
+    GenshinItemList,
   },
   watch: {
     // 切换池子的时候清空抽奖列表和更新统计数据

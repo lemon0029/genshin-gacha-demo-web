@@ -1,47 +1,54 @@
 <template>
-  <a-card :loading="false"
-          :bordered="true"
-          :bodyStyle="{
-            padding: 0,
-            height: '100%'
-          }"
-          class="genshin-card">
-
+  <div
+    :loading="false"
+    :bordered="true"
+    :bodyStyle="{
+      padding: 0,
+      height: '100%',
+    }"
+    class="genshin-card"
+  >
     <div :class="['item-bg-' + item['ranting']]" class="item-preview">
-      <div :style="{backgroundImage: 'url(' + item['avatar'] + ')'}" class="item-avatar"/>
-      <div class="item-attr"
-           :class="['character-attr-' + item['characterAttrId']]"
-           v-if="item['character_attr_id'] !== null"/>
+      <div class="item-avatar">
+        <img :alt="item['name']" :src="item['avatar']" />
+      </div>
+      <div
+        class="item-attr"
+        :class="['character-attr-' + item['characterAttrId']]"
+        v-if="item['character_attr_id'] !== null"
+      />
     </div>
-<!--    <div v-if="item['count'] !== undefined" class="item-name">{{ item['name'] }} {{ item['count'] }}</div>-->
-    <div v-if="item['count'] !== undefined" class="item-name">{{ item['name'] }}</div>
-    <div v-else class="item-name">{{ item['name'] }}</div>
-
-  </a-card>
+    <!--    <div v-if="item['count'] !== undefined" class="item-count">{{ item['count'] }}</div>-->
+    <div v-if="item['count'] !== undefined" class="item-name">
+      {{ item["name"] }} × {{ item["count"] }}
+    </div>
+    <!--    <div v-if="item['count'] !== undefined" class="item-count-bg"/>-->
+    <!--    <div v-if="item['count'] !== undefined" class="item-name">{{ item['name'] }}</div>-->
+    <div v-else class="item-name">{{ item["name"] }}</div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'GenshinCard',
+  name: "GenshinCard",
   props: {
     item: {},
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="less">
 .genshin-card {
-  margin: 8px;
-  width: 120px;
-  height: 150px;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
   overflow: hidden;
   box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   .item-preview {
-    width: 100%;
-    height: 83%;
     overflow: hidden;
     position: relative;
     background-size: 110% 110%;
@@ -51,13 +58,13 @@ export default {
     border-bottom-right-radius: 17%;
 
     .item-avatar {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-size: 100% 100%;
-      background-position-x: center;
-      background-position-y: center;
-      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+      }
     }
 
     .item-attr {
@@ -73,24 +80,41 @@ export default {
   }
 
   .item-name {
-    height: 17%;
+    margin: 5px 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
     font-family: YS-Normal, serif;
+  }
+
+  .item-count,
+  .item-count-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+  }
+
+  .item-count {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+  }
+
+  .item-count-bg {
+    background-color: #ace0f9;
+    z-index: 3;
+    opacity: 0.4;
+    width: 100%;
   }
 }
 
 @media screen and (max-width: 500px) {
   .genshin-card {
-    width: 88px;
-    height: 110px;
-    margin: 5px;
-
-    .item-name {
-      font-size: 12px;
-    }
-
     .item-attr {
       width: 18px;
       height: 18px;
