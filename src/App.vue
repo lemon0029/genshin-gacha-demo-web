@@ -2,13 +2,12 @@
   <div id="app">
     <a-layout>
       <div class="loading-container" v-show="isLoading">
-        <a-spin size="large"/>
-        
+        <a-spin size="large" />
       </div>
-     <app-header/>
+      <app-header />
       <a-layout-content v-show="!isLoading">
         <div class="container">
-          <router-view/>
+          <router-view />
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center" v-show="!isLoading">
@@ -20,34 +19,34 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import {Layout} from 'ant-design-vue'
-import AppHeader from '@/components/AppHeader'
+import { mapState } from "vuex";
+import { Layout } from "ant-design-vue";
+import AppHeader from "@/components/AppHeader";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState({
-      isLoading: state => state.isLoading
-    })
+      isLoading: (state) => state.isLoading,
+    }),
   },
   components: {
     AppHeader,
     ALayout: Layout,
     ALayoutContent: Layout.Content,
     ALayoutFooter: Layout.Footer,
-  }
-}
+  },
+};
 </script>
 
 <style lang="less">
 @font-face {
   font-family: YS-Normal;
   src: url("assets/font/Default_SC.ttf");
-  font-style: normal
+  font-style: normal;
 }
 #app {
   font-family: YS-Normal, serif;
@@ -55,6 +54,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+
+  .ant-layout {
+    min-height: 100vh;
+  }
 
   .loading-container {
     top: 0;

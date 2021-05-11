@@ -126,21 +126,17 @@ export default {
       this.$router.push({ name: "Inventory", query: { poolId: data } });
     },
     async fetchPools() {
-      await axios
-        .get("/api/genshin/pool", {
-          headers: { vid: this.vid },
-        })
-        .then((resp) => {
-          if (resp.data.code === 401) {
-            // 授权未通过
-            this.error_show = true;
-            this.error_message = "当前会话已过期，请尝试重新刷新页面注册 😑";
-            localStorage.removeItem("vid");
-          } else {
-            this.pools = resp.data.data;
-            this.selected_pool = resp.data.data[0]["pool_id"];
-          }
-        });
+      await axios.get("/api/genshin/pool").then((resp) => {
+        if (resp.data.code === 401) {
+          // 授权未通过
+          this.error_show = true;
+          this.error_message = "当前会话已过期，请尝试重新刷新页面注册 😑";
+          localStorage.removeItem("vid");
+        } else {
+          this.pools = resp.data.data;
+          this.selected_pool = resp.data.data[0]["pool_id"];
+        }
+      });
     },
     async auth() {
       await axios.get("/api/auth").then((resp) => {
@@ -154,9 +150,6 @@ export default {
         .get("/api/wish/statistic", {
           params: {
             poolId: this.selected_pool,
-          },
-          headers: {
-            vid: this.vid,
           },
         })
         .then((resp) => {
@@ -181,9 +174,6 @@ export default {
             poolId: this.selected_pool, // 抽奖池子ID
             n: n, // 抽奖次数
           },
-          headers: {
-            vid: this.vid,
-          },
         })
         .then((resp) => {
           if (resp.data.code !== 200) {
@@ -199,9 +189,6 @@ export default {
     async reset() {
       await axios.get("/api/wish/reset", {
         params: { poolId: this.selected_pool },
-        headers: {
-          vid: this.vid,
-        },
       });
       await this.fetchWishPoolStatistic();
     },
@@ -271,7 +258,7 @@ export default {
 @media screen and (max-width: 1200px) {
   .home {
     .main-content {
-      padding: 15px ;
+      padding: 15px;
       min-height: 0;
 
       .left-box {

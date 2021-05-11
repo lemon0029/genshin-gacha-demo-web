@@ -20,6 +20,10 @@ const _axios = axios.create(config)
 
 _axios.interceptors.request.use(
   function (config) {
+    let vid = localStorage.getItem("vid")
+    if (vid) {
+      config.headers = {'vid': vid}
+    }
     // Do something before request is sent
     return config
   },

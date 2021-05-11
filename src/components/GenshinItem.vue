@@ -18,12 +18,10 @@
         v-if="item['character_attr_id'] !== null"
       />
     </div>
-    <!--    <div v-if="item['count'] !== undefined" class="item-count">{{ item['count'] }}</div>-->
     <div v-if="item['count'] !== undefined" class="item-name">
-      {{ item["name"] }} × {{ item["count"] }}
+      {{ item["name"] }} <br />
+      × {{ item["count"] }}
     </div>
-    <!--    <div v-if="item['count'] !== undefined" class="item-count-bg"/>-->
-    <!--    <div v-if="item['count'] !== undefined" class="item-name">{{ item['name'] }}</div>-->
     <div v-else class="item-name">{{ item["name"] }}</div>
   </div>
 </template>

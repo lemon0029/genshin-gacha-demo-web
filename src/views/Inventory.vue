@@ -11,26 +11,25 @@
     </div>
 
     <div class="main-content">
-      <a-empty v-show="gifts.length === 0"/>
+      <a-empty v-show="gifts.length === 0" />
       <genshin-item-list :items="gifts" />
     </div>
   </div>
-
 </template>
 
 <script>
-import GenshinItemList from '@/components/GenshinItemList'
-import {Select} from 'ant-design-vue'
+import GenshinItemList from "@/components/GenshinItemList";
+import { Select } from "ant-design-vue";
 
 export default {
   data() {
     return {
       gifts: [],
       pools: [],
-      selected_pool: '',
-    }
+      selected_pool: "",
+    };
   },
-  name: 'Inventory',
+  name: "Inventory",
   components: {
     GenshinItemList,
     ASelect: Select,
@@ -40,41 +39,42 @@ export default {
   watch: {
     // 切换池子的时候清空抽奖列表和更新统计数据
     selected_pool(val) {
-      this.selected_pool = val
-      this.fetchGifts()
-      this.wish_gifts = []
-    }
+      this.selected_pool = val;
+      this.fetchGifts();
+      this.wish_gifts = [];
+    },
   },
   async created() {
-    if (this.$route.query['poolId'] !== undefined)
-      this.selected_pool = this.$route.query['poolId']
-    await this.fetchPools()
-    await this.fetchGifts()
+    await axios.get("/api/genshin/items").then((resp) => {
+      console.log(resp.data);
+    });
+
+    if (this.$route.query["poolId"] !== undefined)
+      this.selected_pool = this.$route.query["poolId"];
+    await this.fetchPools();
+    await this.fetchGifts();
   },
   methods: {
     async fetchGifts() {
-      await axios.get('/api/inventory', {
-        params: {
-          'poolId': this.selected_pool
-        },
-        headers: {
-          'vid': localStorage.getItem('vid')
-        }
-      }).then(resp => {
-        this.gifts = resp.data.data
-      })
+      await axios
+        .get("/api/inventory", {
+          params: {
+            poolId: this.selected_pool,
+          },
+        })
+        .then((resp) => {
+          this.gifts = resp.data.data;
+        });
     },
     async fetchPools() {
-      await axios.get('/api/genshin/pool', {
-        headers: {'vid': localStorage.getItem('vid')}
-      }).then(resp => {
-          this.pools = resp.data.data
-          if (this.selected_pool === "")
-            this.selected_pool = resp.data.data[0]['pool_id']
-      })
+      await axios.get("/api/genshin/pool").then((resp) => {
+        this.pools = resp.data.data;
+        if (this.selected_pool === "")
+          this.selected_pool = resp.data.data[0]["pool_id"];
+      });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="less">
@@ -97,15 +97,8 @@ export default {
 
   .genshin-card-container {
     display: flex;
-    //align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
   }
-
-  /* 使用伪元素辅助左对齐 */
-  //.genshin-card-container::after {
-  //  content: '';
-  //  flex: 1;    /* 或者flex: 1 */
-  //}
 }
 </style>
